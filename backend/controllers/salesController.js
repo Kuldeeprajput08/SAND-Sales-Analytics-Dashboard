@@ -1,10 +1,30 @@
-import { Query } from "mongoose";
 import Sales from "../models/Sales.js";
 
 const buildSalesMatch = (query) => {
   const match = {};
 
   const { startDate, endDate, category, region, product } = query;
+
+  const start = startDate ? new Date(startDate) : null;
+  const end = endDate ? new Date(endDate) : null;
+
+  if (startDate && isNaN(start.getTime())) {
+    const error = new Error("Invalid start date");
+    error.statusCode = 400;
+    throw error;
+  }
+
+  if (endDate && isNaN(end.getTime())) {
+    const error = new Error("Invalid end date");
+    error.statusCode = 400;
+    throw error;
+  }
+
+  if (start && end && start > end) {
+    const error = new Error("Start date cannot be after end date");
+    error.statusCode = 400;
+    throw error;
+  }
 
   if (startDate || endDate) {
     match.date = {};
@@ -40,10 +60,9 @@ export const getAllSales = async (req, res) => {
       data: sales,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(error.statusCode || 500).json({
       success: false,
-      message: "Failed to fetch sales records",
-      error: error.message,
+      message: error.message || "Failed to fetch sales records",
     });
   }
 };
@@ -97,8 +116,8 @@ export const getSalesSummary = async (req, res) => {
       },
     });
   } catch (error) {
-    res.status(500).json({
-      succes: false,
+    res.status(error.statusCode || 500).json({
+      success: false,
       message: "Failed to fetch sales summary",
       error: error.message,
     });
@@ -134,7 +153,7 @@ export const getSalesByCategory = async (req, res) => {
       data: CategorySales,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(error.statusCode || 500).json({
       success: false,
       message: "Failed to fecth category Sales",
       error: error.message,
@@ -172,7 +191,7 @@ export const getSalesByRegion = async (req, res) => {
       data: regionSales,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(error.statusCode || 500).json({
       success: false,
       message: "Failed to fetch region sales",
       error: error.message,
@@ -230,7 +249,7 @@ export const getSalesByTrend = async (req, res) => {
       data: monthlySales,
     });
   } catch (error) {
-    res.status(500).json({
+    res.status(error.statusCode || 500).json({
       success: false,
       message: "Failed to fetch sales trend",
       error: error.message,

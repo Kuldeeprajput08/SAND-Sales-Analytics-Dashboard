@@ -20,6 +20,7 @@ const useSalesData = (filters = {}) => {
     const fetchDashboardData = async () => {
       try {
         setLoading(true);
+        setError(null);
 
         const [summaryRes, categoryRes, regionRes, trendRes] =
           await Promise.all([
@@ -34,7 +35,11 @@ const useSalesData = (filters = {}) => {
         setRegionSales(regionRes.data.data);
         setSalesTrend(trendRes.data.data);
       } catch (err) {
-        setError(err.message);
+        setError(
+          err.response?.data?.message ||
+            err.message ||
+            "Something went wrong while fetching dashboard data",
+        );
       } finally {
         setLoading(false);
       }

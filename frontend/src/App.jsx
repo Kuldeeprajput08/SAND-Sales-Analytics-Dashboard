@@ -23,8 +23,9 @@ function App() {
     region: "",
     product: "",
   });
+  const [appliedFilters, setAppliedFilters] = useState({});
   const { summary, categorySales, regionSales, salesTrend, loading, error } =
-    useSalesData(filters);
+    useSalesData(appliedFilters);
 
   // Show loading message while APIs are fetching data
   if (loading) {
@@ -102,6 +103,10 @@ function App() {
           <option value="USB Cable">USB Cable</option>
           <option value="Headphones">Headphones</option>
         </select>
+
+        <button type="button" onClick={() => setAppliedFilters({ ...filters })}>
+          Apply Filters
+        </button>
       </div>
       {/* KPI CARDS */}
       <div className="kpi-container">
@@ -130,50 +135,62 @@ function App() {
       <div className="chart-card">
         <h2>Monthly Sales Trend</h2>
 
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={salesTrend}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="month" />
-            <YAxis />
-            <Tooltip />
-            <Line
-              type="monotone"
-              dataKey="totalSales"
-              stroke="#2563eb"
-              strokeWidth={3}
-            />
-          </LineChart>
-        </ResponsiveContainer>
+        {salesTrend.length > 0 ? (
+          <ResponsiveContainer width="100%" height={300}>
+            <LineChart data={salesTrend}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="month" />
+              <YAxis />
+              <Tooltip />
+              <Line
+                type="monotone"
+                dataKey="totalSales"
+                stroke="#2563eb"
+                strokeWidth={3}
+              />
+            </LineChart>
+          </ResponsiveContainer>
+        ) : (
+          <p>No sales data available for this selection.</p>
+        )}
       </div>
 
       {/* CATEGORY-WISE SALES */}
       <div className="chart-card">
         <h2>Category-wise Sales</h2>
 
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={categorySales}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="category" />
-            <YAxis />
-            <Tooltip />
-            <Bar dataKey="totalSales" fill="#16a34a" />
-          </BarChart>
-        </ResponsiveContainer>
+        {categorySales.length > 0 ? (
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={categorySales}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="category" />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="totalSales" fill="#16a34a" />
+            </BarChart>
+          </ResponsiveContainer>
+        ) : (
+          <p>No category sales data available.</p>
+        )}
       </div>
 
       {/* REGION-WISE SALES */}
       <div className="chart-card">
         <h2>Region-wise Sales</h2>
 
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={regionSales}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="region" />
-            <YAxis />
-            <Tooltip />
-            <Bar dataKey="totalSales" fill="#f59e0b" />
-          </BarChart>
-        </ResponsiveContainer>
+        {regionSales.length > 0 ? (
+          <ResponsiveContainer width="100%" height={300}>
+            <BarChart data={regionSales}>
+              <CartesianGrid strokeDasharray="3 3" />
+              <XAxis dataKey="region" />
+              <YAxis />
+              <Tooltip />
+              <Bar dataKey="totalSales" fill="#f59e0b" />
+            </BarChart>
+          </ResponsiveContainer>
+        ) : (
+          <p>No regional sales data available.</p>
+        )}
       </div>
     </div>
   );
