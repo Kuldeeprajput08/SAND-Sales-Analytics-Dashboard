@@ -294,8 +294,6 @@ The application gracefully handles:
 
 **Developed as a MERN Stack Assessment Project**
 
-[![GitHub](https://img.shields.io/badge/GitHub-Kuldeeprajput08-181717?style=for-the-badge&logo=github)](https://github.com/Kuldeeprajput08)
-
 ⭐ **If you found this project helpful, please give it a star!** ⭐
 
 </div>
