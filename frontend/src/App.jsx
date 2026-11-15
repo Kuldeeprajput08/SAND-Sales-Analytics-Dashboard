@@ -1,122 +1,182 @@
-import { useState } from 'react'
-import heroImg from './assets/hero.png'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import './App.css'
+import { useState } from "react";
+import "./App.css";
+import useSalesData from "./hooks/useSalesData";
+
+import {
+  ResponsiveContainer,
+  LineChart,
+  Line,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+} from "recharts";
 
 function App() {
-  const [count, setCount] = useState(0)
+  // Get dashboard data from our custom hook
+  const [filters, setFilters] = useState({
+    startDate: "",
+    endDate: "",
+    category: "",
+    region: "",
+    product: "",
+  });
+  const { summary, categorySales, regionSales, salesTrend, loading, error } =
+    useSalesData(filters);
+
+  // Show loading message while APIs are fetching data
+  if (loading) {
+    return <p>Loading dashboard...</p>;
+  }
+
+  // Show error if API request fails
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
+    <div className="dashboard">
+      <h1>SAND-Board</h1>
+      {/* FILTER SECTION */}
+      <div className="filters">
+        <label>
+          Start Date
+          <input
+            type="date"
+            value={filters.startDate}
+            onChange={(e) =>
+              setFilters({ ...filters, startDate: e.target.value })
+            }
+          />
+        </label>
+
+        <label>
+          End Date
+          <input
+            type="date"
+            value={filters.endDate}
+            onChange={(e) =>
+              setFilters({ ...filters, endDate: e.target.value })
+            }
+          />
+        </label>
+        <select
+          name="category"
+          value={filters.category}
+          onChange={(e) => setFilters({ ...filters, category: e.target.value })}
         >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+          <option value="">All Categories</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Accessories">Accessories</option>
+          <option value="Furniture">Furniture</option>
+          <option value="Appliances">Appliances</option>
+        </select>
+        <select
+          name="region"
+          value={filters.region}
+          onChange={(e) => setFilters({ ...filters, region: e.target.value })}
+        >
+          <option value="">All Regions</option>
+          <option value="North">North</option>
+          <option value="South">South</option>
+          <option value="East">East</option>
+          <option value="West">West</option>
+        </select>
+        {/* Product Filter */}
+        <select
+          name="product"
+          value={filters.product}
+          onChange={(e) => setFilters({ ...filters, product: e.target.value })}
+        >
+          <option value="">All Products</option>
+          <option value="Laptop">Laptop</option>
+          <option value="Smartphone">Smartphone</option>
+          <option value="Monitor">Monitor</option>
+          <option value="Keyboard">Keyboard</option>
+          <option value="Desk">Desk</option>
+          <option value="Office Chair">Office Chair</option>
+          <option value="Toaster">Toaster</option>
+          <option value="Coffee Machine">Coffee Machine</option>
+          <option value="USB Cable">USB Cable</option>
+          <option value="Headphones">Headphones</option>
+        </select>
+      </div>
+      {/* KPI CARDS */}
+      <div className="kpi-container">
+        <div className="kpi-card">
+          <h3>Total Sales</h3>
+          <p>₹{summary.totalSales.toLocaleString("en-IN")}</p>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+        <div className="kpi-card">
+          <h3>Total Orders</h3>
+          <p>{summary.totalOrders}</p>
+        </div>
+
+        <div className="kpi-card">
+          <h3>Total Quantity</h3>
+          <p>{summary.totalQuantity}</p>
+        </div>
+
+        <div className="kpi-card">
+          <h3>Average Order Value</h3>
+          <p>₹{summary.averageOrderValue.toLocaleString("en-IN")}</p>
+        </div>
+      </div>
+
+      {/* MONTHLY SALES TREND */}
+      <div className="chart-card">
+        <h2>Monthly Sales Trend</h2>
+
+        <ResponsiveContainer width="100%" height={300}>
+          <LineChart data={salesTrend}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="month" />
+            <YAxis />
+            <Tooltip />
+            <Line
+              type="monotone"
+              dataKey="totalSales"
+              stroke="#2563eb"
+              strokeWidth={3}
+            />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* CATEGORY-WISE SALES */}
+      <div className="chart-card">
+        <h2>Category-wise Sales</h2>
+
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={categorySales}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="category" />
+            <YAxis />
+            <Tooltip />
+            <Bar dataKey="totalSales" fill="#16a34a" />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+
+      {/* REGION-WISE SALES */}
+      <div className="chart-card">
+        <h2>Region-wise Sales</h2>
+
+        <ResponsiveContainer width="100%" height={300}>
+          <BarChart data={regionSales}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="region" />
+            <YAxis />
+            <Tooltip />
+            <Bar dataKey="totalSales" fill="#f59e0b" />
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
 }
 
-export default App
+export default App;
