@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
+import salesRoutes from "./routes/salesRoutes.js";
 
 // Load environment variables
 dotenv.config();
@@ -12,6 +13,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use("/api/sales", salesRoutes);
 // Test Route
 app.get("/", (req, res) => {
   res.json({
