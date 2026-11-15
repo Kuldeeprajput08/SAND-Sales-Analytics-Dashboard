@@ -1,4 +1,4 @@
-<div align="center">
+ <div align="center">
 
 # 📊 SAND — Sales Analytics Dashboard
 
@@ -22,22 +22,21 @@
 
 <br/>
 
-
 </div>
 
 ---
 
 ## ✨ Features
 
-| Feature | Description |
-|---|---|
-| 📦 **Sales KPIs** | Total Sales, Total Orders, Total Quantity, Average Order Value |
-| 📈 **Sales Trend** | Monthly sales visualization with interactive line charts |
-| 🗂️ **Category Analysis** | Sales grouped and compared by product category |
-| 🌍 **Regional Analysis** | Sales performance broken down by region |
-| 🎛️ **Dynamic Filters** | Filter by date range, category, region, and product |
-| ⚙️ **MongoDB Aggregation** | Backend pipelines for all analytics calculations |
-| 🛡️ **Error Handling** | Invalid dates, API failures, loading states, empty results |
+| Feature                    | Description                                                    |
+| -------------------------- | -------------------------------------------------------------- |
+| 📦 **Sales KPIs**          | Total Sales, Total Orders, Total Quantity, Average Order Value |
+| 📈 **Sales Trend**         | Monthly sales visualization with interactive line charts       |
+| 🗂️ **Category Analysis**   | Sales grouped and compared by product category                 |
+| 🌍 **Regional Analysis**   | Sales performance broken down by region                        |
+| 🎛️ **Dynamic Filters**     | Filter by date range, category, region, and product            |
+| ⚙️ **MongoDB Aggregation** | Backend pipelines for all analytics calculations               |
+| 🛡️ **Error Handling**      | Invalid dates, API failures, loading states, empty results     |
 
 ---
 
@@ -48,6 +47,7 @@
 <td valign="top" width="50%">
 
 ### 🖥️ Frontend
+
 - ⚛️ **React.js** — UI component library
 - ⚡ **Vite** — Next-gen build tool
 - 📡 **Axios** — HTTP client for API calls
@@ -58,6 +58,7 @@
 <td valign="top" width="50%">
 
 ### 🔧 Backend
+
 - 🟢 **Node.js** — JavaScript runtime
 - 🚂 **Express.js** — Web application framework
 - 🍃 **MongoDB** — NoSQL database
@@ -71,26 +72,27 @@
 
 ## 📁 Project Structure
 
-```
+```text
 SAND/
-├── 📂 backend/
-│   ├── 📂 controllers/       # Route handler logic
-│   ├── 📂 models/            # Mongoose schemas
-│   ├── 📂 routes/            # API route definitions
-│   ├── 📂 seed/              # Database seeder scripts
-│   ├── 📄 .env.example       # Environment variable template
-│   └── 📄 server.js          # Express server entry point
+├── backend/
+│   ├── controllers/       # Route handler logic
+│   ├── models/            # Mongoose schemas
+│   ├── routes/            # API route definitions
+│   ├── seed/              # Database seeder scripts
+│   ├── .env.example       # Environment variable template
+│   ├── package.json
+│   └── server.js          # Express server entry point
 │
-├── 📂 frontend/
-│   ├── 📂 src/
-│   │   ├── 📂 hooks/         # Custom React hooks
-│   │   ├── 📄 App.jsx        # Root application component
-│   │   └── 📄 App.css        # Global styles
-│   ├── 📂 services/          # API service functions
-│   └── 📄 .env               # Frontend environment variables
+├── frontend/
+│   ├── src/
+│   │   ├── hooks/         # Custom React hooks
+│   │   ├── App.jsx        # Root application component
+│   │   └── App.css        # Global styles
+│   ├── services/          # API service functions
+│   └── package.json
 │
-├── 📄 .gitignore
-└── 📄 README.md
+├── .gitignore
+└── README.md
 ```
 
 ---
@@ -101,11 +103,11 @@ SAND/
 
 Make sure you have the following installed before proceeding:
 
-| Tool | Download |
-|---|---|
-| ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=node.js&logoColor=white) | [nodejs.org](https://nodejs.org/) |
+| Tool                                                                                                   | Download                                                      |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------- |
+| ![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=node.js&logoColor=white) | [nodejs.org](https://nodejs.org/)                             |
 | ![MongoDB](https://img.shields.io/badge/MongoDB-47A248?style=flat-square&logo=mongodb&logoColor=white) | [mongodb.com](https://www.mongodb.com/try/download/community) |
-| ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white) | [git-scm.com](https://git-scm.com/) |
+| ![Git](https://img.shields.io/badge/Git-F05032?style=flat-square&logo=git&logoColor=white)             | [git-scm.com](https://git-scm.com/)                           |
 
 ---
 
@@ -154,7 +156,7 @@ node server.js
 
 The backend will be running at:
 
-```
+```text
 http://localhost:5000
 ```
 
@@ -165,7 +167,7 @@ http://localhost:5000
 Open a **new terminal** and run:
 
 ```bash
-cd frontend
+cd SAND-Sales-Analytics-Dashboard/frontend
 npm install
 ```
 
@@ -183,7 +185,7 @@ npm run dev
 
 Open the local URL shown by Vite — typically:
 
-```
+```text
 http://localhost:5173
 ```
 
@@ -195,13 +197,13 @@ http://localhost:5173
 
 ### 🔗 Endpoints
 
-| Method | Endpoint | Description |
-|---|---|---|
-| `GET` | `/sales` | Fetch all sales records |
-| `GET` | `/sales/summary` | Get overall sales KPIs |
-| `GET` | `/sales/by-category` | Get category-wise sales totals |
-| `GET` | `/sales/by-region` | Get region-wise sales totals |
-| `GET` | `/sales/trend` | Get monthly sales trend |
+| Method | Endpoint             | Description                    |
+| ------ | -------------------- | ------------------------------ |
+| `GET`  | `/sales`             | Fetch all sales records        |
+| `GET`  | `/sales/summary`     | Get overall sales KPIs         |
+| `GET`  | `/sales/by-category` | Get category-wise sales totals |
+| `GET`  | `/sales/by-region`   | Get region-wise sales totals   |
+| `GET`  | `/sales/trend`       | Get monthly sales trend        |
 
 ---
 
@@ -209,13 +211,13 @@ http://localhost:5173
 
 All endpoints support the following optional query parameters:
 
-| Parameter | Type | Description |
-|---|---|---|
-| `startDate` | `string` | Filter records from this date (`YYYY-MM-DD`) |
-| `endDate` | `string` | Filter records up to this date (`YYYY-MM-DD`) |
-| `category` | `string` | Filter by product category |
-| `region` | `string` | Filter by region |
-| `product` | `string` | Filter by product name |
+| Parameter   | Type     | Description                                   |
+| ----------- | -------- | --------------------------------------------- |
+| `startDate` | `string` | Filter records from this date (`YYYY-MM-DD`)  |
+| `endDate`   | `string` | Filter records up to this date (`YYYY-MM-DD`) |
+| `category`  | `string` | Filter by product category                    |
+| `region`    | `string` | Filter by region                              |
+| `product`   | `string` | Filter by product name                        |
 
 **Examples:**
 
@@ -251,14 +253,14 @@ GET /api/sales/trend?category=Electronics&startDate=2026-01-01
 
 The backend leverages MongoDB **aggregation pipelines** to compute all dashboard metrics server-side, ensuring efficient and scalable analytics.
 
-| Operator | Usage |
-|---|---|
-| `$match` | Filters records based on query parameters |
-| `$group` | Groups records by category, region, or month |
-| `$sum` | Calculates sales totals and order counts |
-| `$avg` | Calculates average order value |
-| `$sort` | Orders results for trend charts |
-| `$project` | Selects and renames output fields |
+| Operator   | Usage                                        |
+| ---------- | -------------------------------------------- |
+| `$match`   | Filters records based on query parameters    |
+| `$group`   | Groups records by category, region, or month |
+| `$sum`     | Calculates sales totals and order counts     |
+| `$avg`     | Calculates average order value               |
+| `$sort`    | Orders results for trend charts              |
+| `$project` | Selects and renames output fields            |
 
 ---
 
@@ -276,14 +278,14 @@ The application gracefully handles:
 
 ## 🏗️ Design Decisions
 
-| Decision | Rationale |
-|---|---|
-| Each sales document = one order | Simplifies aggregation and counting logic |
-| Total Orders = count of documents | Straightforward mapping to business concept |
-| Average Order Value = `$avg` on sales field | Reflects true per-order revenue average |
-| Analytics calculated on backend | Keeps frontend lightweight; leverages MongoDB's aggregation engine |
-| Filters applied on button click | Avoids excessive API calls during user input |
-| Charts use API data only | No hardcoded values — fully data-driven visualizations |
+| Decision                                    | Rationale                                                          |
+| ------------------------------------------- | ------------------------------------------------------------------ |
+| Each sales document = one order             | Simplifies aggregation and counting logic                          |
+| Total Orders = count of documents           | Straightforward mapping to business concept                        |
+| Average Order Value = `$avg` on sales field | Reflects true per-order revenue average                            |
+| Analytics calculated on backend             | Keeps frontend lightweight; leverages MongoDB's aggregation engine |
+| Filters applied on button click             | Avoids excessive API calls during user input                       |
+| Charts use API data only                    | No hardcoded values — fully data-driven visualizations             |
 
 ---
 

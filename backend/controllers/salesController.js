@@ -1,26 +1,32 @@
 import Sales from "../models/Sales.js";
+const isValidDate = (value) => {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+    return false;
+  }
+
+  const date = new Date(`${value}T00:00:00.000Z`);
+
+  return !isNaN(date.getTime()) && date.toISOString().slice(0, 10) === value;
+};
 
 const buildSalesMatch = (query) => {
   const match = {};
 
   const { startDate, endDate, category, region, product } = query;
 
-  const start = startDate ? new Date(startDate) : null;
-  const end = endDate ? new Date(endDate) : null;
-
-  if (startDate && isNaN(start.getTime())) {
+  if (startDate && !isValidDate(startDate)) {
     const error = new Error("Invalid start date");
     error.statusCode = 400;
     throw error;
   }
 
-  if (endDate && isNaN(end.getTime())) {
+  if (endDate && !isValidDate(endDate)) {
     const error = new Error("Invalid end date");
     error.statusCode = 400;
     throw error;
   }
 
-  if (start && end && start > end) {
+  if (startDate && endDate && new Date(startDate) > new Date(endDate)) {
     const error = new Error("Start date cannot be after end date");
     error.statusCode = 400;
     throw error;
@@ -118,7 +124,9 @@ export const getSalesSummary = async (req, res) => {
   } catch (error) {
     res.status(error.statusCode || 500).json({
       success: false,
-      message: "Failed to fetch sales summary",
+      message: error.statusCode
+        ? error.message
+        : "Failed to fetch sales summary",
       error: error.message,
     });
   }
@@ -155,7 +163,9 @@ export const getSalesByCategory = async (req, res) => {
   } catch (error) {
     res.status(error.statusCode || 500).json({
       success: false,
-      message: "Failed to fecth category Sales",
+      message: error.statusCode
+        ? error.message
+        : "Failed to fetch category sales",
       error: error.message,
     });
   }
@@ -193,7 +203,9 @@ export const getSalesByRegion = async (req, res) => {
   } catch (error) {
     res.status(error.statusCode || 500).json({
       success: false,
-      message: "Failed to fetch region sales",
+      message: error.statusCode
+        ? error.message
+        : "Failed to fetch region sales",
       error: error.message,
     });
   }
@@ -251,7 +263,7 @@ export const getSalesByTrend = async (req, res) => {
   } catch (error) {
     res.status(error.statusCode || 500).json({
       success: false,
-      message: "Failed to fetch sales trend",
+      message: error.statusCode ? error.message : "Failed to fetch sales trend",
       error: error.message,
     });
   }
