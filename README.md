@@ -22,7 +22,6 @@
 
 <br/>
 
-![SAND Dashboard Preview](https://opengraph.githubassets.com/4eff6e80d7433fbed7bb74d6806b8bda48bf04f88d00d152acb20220c835a36e/Kuldeeprajput08/SAND-Sales-Analytics-Dashboard)
 
 </div>
 
