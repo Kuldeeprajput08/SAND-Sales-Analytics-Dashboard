@@ -276,6 +276,26 @@ The application gracefully handles:
 
 ---
 
+## 📸 Dashboard Screenshots
+
+### 1. Dashboard Overview
+
+The dashboard displays sales KPIs and monthly sales trends.
+
+![Dashboard Overview](screenshots/01-SAND-Dashboard-Overview-Top.png)
+
+![Dashboard Charts](screenshots/02-SAND-Dashboard-Overview-Charts.png)
+
+### 2. Dashboard with Combined Filters
+
+The dashboard updates KPIs and charts based on the selected category, region, and product filters.
+
+![Combined Filters Overview](screenshots/03-SAND-Combined-Filters-Top.png)
+
+![Combined Filters Charts](screenshots/04-SAND-Combined-Filters-Charts.png)
+
+---
+
 ## 🏗️ Design Decisions
 
 | Decision                                    | Rationale                                                          |
